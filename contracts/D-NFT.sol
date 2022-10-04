@@ -14,45 +14,44 @@ pragma solidity ^0.8.0;
     limitations under the License.
 */
 
-    error Deadline(uint deadline, uint blockTimeStamp);
-    error PairNotAllowed();
-    error RateNotHighEnough(uint currentRate, uint minRate);
-    error INSUFFICIENT_AMOUNT(uint amount);
-    error INSUFFICIENT_LIQUIDITY(uint liquidity);
-    error WrongTokenAddress(address tokenAddress);
-
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./RandomNumber.sol";
 
 
 
 //todo : grammaire( _ internal, majuscules etc), commentaires
 
-contract Bank is BankRouter, GovernanceOwnable, ILiquidityRedeemable {
+contract DNFT is ERC721 {
 
-    using DebondMath for uint256;
+    address immutable governanceAddress;
+    address immutable debondNFTTokenAddress;
 
-    address public bankDataAddress;
-    address public bondManagerAddress;
-    address public debondBondAddress;
-    enum PurchaseMethod {Buying, Staking}
-
-
-
-    constructor(
-        address _governanceAddress,
-        address _APMAddress,
-        address _bankBondManagerAddress,
-        address _bankDataAddress,
-        address _DBITAddress,
-        address _DGOVAddress,
-        address _USDCAddress,
-        address _WETHAddress,
-        address _oracleAddress,
-        address _debondBondAddress
-    ) GovernanceOwnable(_governanceAddress) BankRouter(_APMAddress, _DBITAddress, _DGOVAddress, _USDCAddress, _WETHAddress, _oracleAddress) {
-        bondManagerAddress = _bankBondManagerAddress;
-        bankDataAddress = _bankDataAddress;
-        debondBondAddress = _debondBondAddress;
+    constructor(address _governanceAddress, address _debondNFTTokenAddress )  {
+        governanceAddress = _governanceAddress;
+        debondNFTTokenAddress = _debondNFTTokenAddress;
     }
 
+    modifier onlyGov {
+        require(msg.sender == governanceAddress, "Gov: Need rights");
+        _;
+    }    
+
+    function mint(address to, uint id) external onlyGov {
+        _safeMint(to, id);
+    }
+
+    function burn(uint id) external {
+        require(msg.sender == ownerOf(id));
+        _burn(id);
+    }
+
+    function reveal(uint amount, address _to) external {
+        IERC20(debondNFTTokenAddress).safeTransfer(msg.sender, amount *1000000000000000000);
+        for (uint i; i < amount - 1; i++) {
+            uint randomId = RandomNumber.getRandomNumber();
+            _safeMint(_to, randomId);
+        }
+        
+    }
 }
