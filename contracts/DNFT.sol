@@ -17,12 +17,12 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./RandomNumber.sol";
-
+import "./interfaces/IPseudoRandom.sol";
 
 
 //todo : grammaire( _ internal, majuscules etc), commentaires
 
-contract DNFT is ERC721 {
+contract DNFT is ERC721, IPseudoRandom {
 
     address immutable governanceAddress;
     address immutable debondNFTTokenAddress;
@@ -37,21 +37,21 @@ contract DNFT is ERC721 {
         _;
     }    
 
-    function mint(address to, uint id) external onlyGov {
+    /*function mint(address to, uint id) external onlyGov {
         _safeMint(to, id);
     }
 
     function burn(uint id) external {
         require(msg.sender == ownerOf(id));
         _burn(id);
-    }
+    }*/
 
     function reveal(uint amount, address _to) external {
-        IERC20(debondNFTTokenAddress).safeTransfer(msg.sender, amount *1000000000000000000);
+        IERC20(debondNFTTokenAddress).transfer(msg.sender, amount *1000000000000000000); //safeTransfer
         for (uint i; i < amount - 1; i++) {
-            uint randomId = RandomNumber.getRandomNumber();
-            _safeMint(_to, randomId);
+            //uint randomId = RandomNumber.getRandomNumber();
+            //_safeMint(_to, randomId);
         }
-        
     }
+        
 }
