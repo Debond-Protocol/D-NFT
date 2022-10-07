@@ -27,13 +27,11 @@ contract DNFT is ERC721, PseudoRandom{
     address immutable governanceAddress;
     address immutable debondNFTTokenAddress;
     address immutable dgovAddress;
-    address immutable dnft2;
 
-    constructor(address _governanceAddress, address _debondNFTTokenAddress, address _dgovAddress, address _dnft2 ) ERC721("DBOND", "DBD") PseudoRandom(10){
+    constructor(address _governanceAddress, address _debondNFTTokenAddress, address _dgovAddress ) ERC721("DBOND", "DBD") PseudoRandom(10){
         governanceAddress = _governanceAddress;
         debondNFTTokenAddress = _debondNFTTokenAddress;
         dgovAddress = _dgovAddress;
-        dnft2 = _dnft2;
     }
 
     /*modifier onlyGov {
@@ -80,12 +78,8 @@ contract DNFT is ERC721, PseudoRandom{
 
     }
 
-    function compose (address _to, uint[] memory ids) external {
-        require(ids.length == 10);
-        for (uint i; i < ids.length - 1; i++) {
-            _safeTransfer(_to, address(this), ids[i], bytes(""));
-        }
-        IERC721(dnft2)._safeMint(_to, counter);
+    function compose (address _to) external {
+            
     }
 
 
