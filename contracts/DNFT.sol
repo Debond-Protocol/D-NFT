@@ -17,24 +17,34 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./RandomNumber.sol";
-import "./PseudoRandom.sol";
+import "./interfaces/IDNFT.sol";
 
 
 //todo : grammaire( _ internal, majuscules etc), commentaires
 
-contract DNFT is ERC721, PseudoRandom{
+contract DNFT is ERC721{
 
-    address immutable governanceAddress;
-    address immutable debondNFTTokenAddress;
-    address immutable dgovAddress;
-    address immutable dnft2;
+    //address immutable governanceAddress;
+    address debondNFTTokenAddress;
+    address dgovAddress;
+    address dnft2;
+    address immutable owner;
 
-    constructor(address _governanceAddress, address _debondNFTTokenAddress, address _dgovAddress, address _dnft2 ) ERC721("DBOND", "DBD") PseudoRandom(10){
-        governanceAddress = _governanceAddress;
+    constructor(address _owner, address _debondNFTTokenAddress, address _dgovAddress)  ERC721("DBOND", "DBD") {
+        owner = _owner;
         debondNFTTokenAddress = _debondNFTTokenAddress;
         dgovAddress = _dgovAddress;
+    }
+
+    function initialize(address _dnft2) external {
+        require(msg.sender == owner);
         dnft2 = _dnft2;
     }
+
+    /*constructor(address _debondNFTTokenAddress, address _dgovAddress, address _dnft2 ) ERC721("DBOND", "DBD") {
+        
+        dnft2 = _dnft2;
+    }*/
 
     /*modifier onlyGov {
         require(msg.sender == governanceAddress, "Gov: Need rights");
@@ -85,7 +95,7 @@ contract DNFT is ERC721, PseudoRandom{
         for (uint i; i < ids.length - 1; i++) {
             _safeTransfer(_to, address(this), ids[i], bytes(""));
         }
-        IERC721(dnft2)._safeMint(_to, counter);
+        IDNFT(dnft2).mintPrivate(_to);
     }
 
 

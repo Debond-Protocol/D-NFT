@@ -1,0 +1,143 @@
+{
+  "contractName": "IPseudoRandom",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "pickRandomNumber",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"pickRandomNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/interfaces/IPseudoRandom.sol\":\"IPseudoRandom\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000},\"remappings\":[]},\"sources\":{\"project:/contracts/interfaces/IPseudoRandom.sol\":{\"keccak256\":\"0x84a67eb66567a885a7bf7ea16cbb967715d7711877489413fa7bef2a842fbdcd\",\"urls\":[\"bzz-raw://338ef841aaefa5837eeca10bfaae5742cfef91711dc84b5b22c07b753248cb0e\",\"dweb:/ipfs/QmeFbWXuyriRYDrN2kiNAf8gdmSM7LaVD1ck12SVMqoMhm\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity 0.8.17;\n\ninterface IPseudoRandom {\n    function pickRandomNumber() external view returns (uint index);\n}",
+  "sourcePath": "/home/fic2linux/Crypto/Debond/D-NFT/contracts/interfaces/IPseudoRandom.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/interfaces/IPseudoRandom.sol",
+    "exportedSymbols": {
+      "IPseudoRandom": [
+        4524
+      ]
+    },
+    "id": 4525,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 4518,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:30"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IPseudoRandom",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 4524,
+        "linearizedBaseContracts": [
+          4524
+        ],
+        "name": "IPseudoRandom",
+        "nameLocation": "35:13:30",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "a2acb2eb",
+            "id": 4523,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "pickRandomNumber",
+            "nameLocation": "64:16:30",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4519,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "80:2:30"
+            },
+            "returnParameters": {
+              "id": 4522,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4521,
+                  "mutability": "mutable",
+                  "name": "index",
+                  "nameLocation": "111:5:30",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4523,
+                  "src": "106:10:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 4520,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "106:4:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "105:12:30"
+            },
+            "scope": 4524,
+            "src": "55:63:30",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 4525,
+        "src": "25:95:30",
+        "usedErrors": []
+      }
+    ],
+    "src": "0:120:30"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.9",
+  "updatedAt": "2022-10-10T12:28:08.142Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

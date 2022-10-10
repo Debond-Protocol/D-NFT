@@ -1,0 +1,146 @@
+{
+  "contractName": "IGovernanceAddressUpdatable",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_governanceAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setGovernanceAddress",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_governanceAddress\",\"type\":\"address\"}],\"name\":\"setGovernanceAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"@debond-protocol/debond-governance-contracts/interfaces/IGovernanceAddressUpdatable.sol\":\"IGovernanceAddressUpdatable\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000},\"remappings\":[]},\"sources\":{\"@debond-protocol/debond-governance-contracts/interfaces/IGovernanceAddressUpdatable.sol\":{\"keccak256\":\"0x517f9b677f5f30129181cd898fcf0de690ce32e8ad377a6d0f16b0fc79ee78bc\",\"license\":\"apache 2.0\",\"urls\":[\"bzz-raw://c5e49400f6e043bde36079294abcedd0278b1e0c2cb3f3e956090325c216728e\",\"dweb:/ipfs/QmdFsyaZzdCcJffLsDWgtc8QbhdR5oZh9EspGLToxSoNe5\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.8.0;\n\n// SPDX-License-Identifier: apache 2.0\n/*\n    Copyright 2022 Debond Protocol <info@debond.org>\n    Licensed under the Apache License, Version 2.0 (the \"License\");\n    you may not use this file except in compliance with the License.\n    You may obtain a copy of the License at\n    http://www.apache.org/licenses/LICENSE-2.0\n    Unless required by applicable law or agreed to in writing, software\n    distributed under the License is distributed on an \"AS IS\" BASIS,\n    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n    See the License for the specific language governing permissions and\n    limitations under the License.\n*/\n\ninterface IGovernanceAddressUpdatable {\n\n    function setGovernanceAddress(address _governanceAddress) external;\n}\n",
+  "sourcePath": "@debond-protocol/debond-governance-contracts/interfaces/IGovernanceAddressUpdatable.sol",
+  "ast": {
+    "absolutePath": "@debond-protocol/debond-governance-contracts/interfaces/IGovernanceAddressUpdatable.sol",
+    "exportedSymbols": {
+      "IGovernanceAddressUpdatable": [
+        286
+      ]
+    },
+    "id": 287,
+    "license": "apache 2.0",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 280,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:4"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IGovernanceAddressUpdatable",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 286,
+        "linearizedBaseContracts": [
+          286
+        ],
+        "name": "IGovernanceAddressUpdatable",
+        "nameLocation": "688:27:4",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "cfc16254",
+            "id": 285,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setGovernanceAddress",
+            "nameLocation": "732:20:4",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 283,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 282,
+                  "mutability": "mutable",
+                  "name": "_governanceAddress",
+                  "nameLocation": "761:18:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 285,
+                  "src": "753:26:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 281,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "753:7:4",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "752:28:4"
+            },
+            "returnParameters": {
+              "id": 284,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "789:0:4"
+            },
+            "scope": 286,
+            "src": "723:67:4",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 287,
+        "src": "678:114:4",
+        "usedErrors": []
+      }
+    ],
+    "src": "0:793:4"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.9",
+  "updatedAt": "2022-10-10T12:28:08.021Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
