@@ -26,9 +26,11 @@ contract('DNFT', async (accounts: string[]) => {
         dNFT2Instance = await DNFT2.deployed();
         dNFT3Instance = await DNFT3.deployed();
         mysteryBoxTestInstance = await MysteryBoxtest.deployed();
-        dBITTestInstance = await DBITTest.deployed();
+        //dBITTestInstance = await DBITTest.deployed();
+
+        //await dBITTestInstance.mintAllocatedSupply();
     })
 
-    it('should change the bank address (only governance)', async () => {
+    it('', async () => {
     })
 });

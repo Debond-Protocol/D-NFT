@@ -8,6 +8,7 @@ import { EventData, PastEventOptions } from "web3-eth-contract";
 export interface DNFT3Contract extends Truffle.Contract<DNFT3Instance> {
   "new"(
     _owner: string,
+    _governanceAddress: string,
     meta?: Truffle.TransactionDetails
   ): Promise<DNFT3Instance>;
 }
@@ -204,17 +205,35 @@ export interface DNFT3Instance extends Truffle.ContractInstance {
     ): Promise<number>;
   };
 
-  mintPrivate: {
-    (_to: string, txDetails?: Truffle.TransactionDetails): Promise<
+  mint: {
+    (to: string, txDetails?: Truffle.TransactionDetails): Promise<
       Truffle.TransactionResponse<AllEvents>
     >;
-    call(_to: string, txDetails?: Truffle.TransactionDetails): Promise<void>;
+    call(to: string, txDetails?: Truffle.TransactionDetails): Promise<void>;
     sendTransaction(
-      _to: string,
+      to: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      _to: string,
+      to: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<number>;
+  };
+
+  burn: {
+    (id: number | BN | string, txDetails?: Truffle.TransactionDetails): Promise<
+      Truffle.TransactionResponse<AllEvents>
+    >;
+    call(
+      id: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<void>;
+    sendTransaction(
+      id: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<string>;
+    estimateGas(
+      id: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -379,17 +398,36 @@ export interface DNFT3Instance extends Truffle.ContractInstance {
       ): Promise<number>;
     };
 
-    mintPrivate: {
-      (_to: string, txDetails?: Truffle.TransactionDetails): Promise<
+    mint: {
+      (to: string, txDetails?: Truffle.TransactionDetails): Promise<
         Truffle.TransactionResponse<AllEvents>
       >;
-      call(_to: string, txDetails?: Truffle.TransactionDetails): Promise<void>;
+      call(to: string, txDetails?: Truffle.TransactionDetails): Promise<void>;
       sendTransaction(
-        _to: string,
+        to: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        _to: string,
+        to: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<number>;
+    };
+
+    burn: {
+      (
+        id: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<Truffle.TransactionResponse<AllEvents>>;
+      call(
+        id: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<void>;
+      sendTransaction(
+        id: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<string>;
+      estimateGas(
+        id: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };

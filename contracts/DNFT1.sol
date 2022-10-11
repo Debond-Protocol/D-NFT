@@ -19,17 +19,13 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./RandomNumber.sol";
 import "./interfaces/IDNFT.sol";
 
-contract DNFT3 is ERC721, IDNFT{
+contract DNFT1 is ERC721, IDNFT{
 
+    address immutable governanceAddress;
     address dnft2;
-     address immutable governanceAddress;
 
-    constructor(address _governanceAddress) ERC721("Debond NFT3", "DNFT3"){
+    constructor(address _governanceAddress ) ERC721("Debond NFT3", "DNFT3"){
         governanceAddress = _governanceAddress;
-    }
-
-    function initialize(address _dnft2) external {
-        dnft2 = _dnft2;
     }
 
     uint maxNftNumber;
@@ -49,6 +45,5 @@ contract DNFT3 is ERC721, IDNFT{
         require(msg.sender == ownerOf(id));
         _burn(id);
     }
-
         
 }

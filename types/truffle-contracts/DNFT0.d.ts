@@ -5,12 +5,14 @@
 import BN from "bn.js";
 import { EventData, PastEventOptions } from "web3-eth-contract";
 
-export interface DNFT2Contract extends Truffle.Contract<DNFT2Instance> {
+export interface DNFT0Contract extends Truffle.Contract<DNFT0Instance> {
   "new"(
     _owner: string,
+    _debondNFTTokenAddress: string,
+    _dgovAddress: string,
     _governanceAddress: string,
     meta?: Truffle.TransactionDetails
-  ): Promise<DNFT2Instance>;
+  ): Promise<DNFT0Instance>;
 }
 
 export interface Approval {
@@ -51,7 +53,7 @@ export interface Transfer {
 
 type AllEvents = Approval | ApprovalForAll | Transfer;
 
-export interface DNFT2Instance extends Truffle.ContractInstance {
+export interface DNFT0Instance extends Truffle.ContractInstance {
   /**
    * See {IERC721-approve}.
    */
@@ -219,6 +221,52 @@ export interface DNFT2Instance extends Truffle.ContractInstance {
     ): Promise<string>;
     estimateGas(
       id: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<number>;
+  };
+
+  reveal: {
+    (
+      amount: number | BN | string,
+      _to: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<Truffle.TransactionResponse<AllEvents>>;
+    call(
+      amount: number | BN | string,
+      _to: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<void>;
+    sendTransaction(
+      amount: number | BN | string,
+      _to: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<string>;
+    estimateGas(
+      amount: number | BN | string,
+      _to: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<number>;
+  };
+
+  forge: {
+    (
+      amount: number | BN | string,
+      _to: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<Truffle.TransactionResponse<AllEvents>>;
+    call(
+      amount: number | BN | string,
+      _to: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<void>;
+    sendTransaction(
+      amount: number | BN | string,
+      _to: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<string>;
+    estimateGas(
+      amount: number | BN | string,
+      _to: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -395,6 +443,52 @@ export interface DNFT2Instance extends Truffle.ContractInstance {
       ): Promise<string>;
       estimateGas(
         id: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<number>;
+    };
+
+    reveal: {
+      (
+        amount: number | BN | string,
+        _to: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<Truffle.TransactionResponse<AllEvents>>;
+      call(
+        amount: number | BN | string,
+        _to: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<void>;
+      sendTransaction(
+        amount: number | BN | string,
+        _to: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<string>;
+      estimateGas(
+        amount: number | BN | string,
+        _to: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<number>;
+    };
+
+    forge: {
+      (
+        amount: number | BN | string,
+        _to: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<Truffle.TransactionResponse<AllEvents>>;
+      call(
+        amount: number | BN | string,
+        _to: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<void>;
+      sendTransaction(
+        amount: number | BN | string,
+        _to: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<string>;
+      estimateGas(
+        amount: number | BN | string,
+        _to: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };

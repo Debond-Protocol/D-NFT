@@ -12,33 +12,70 @@ export interface IDNFTContract extends Truffle.Contract<IDNFTInstance> {
 type AllEvents = never;
 
 export interface IDNFTInstance extends Truffle.ContractInstance {
-  mintPrivate: {
-    (_to: string, txDetails?: Truffle.TransactionDetails): Promise<
+  mint: {
+    (to: string, txDetails?: Truffle.TransactionDetails): Promise<
       Truffle.TransactionResponse<AllEvents>
     >;
-    call(_to: string, txDetails?: Truffle.TransactionDetails): Promise<void>;
+    call(to: string, txDetails?: Truffle.TransactionDetails): Promise<void>;
     sendTransaction(
-      _to: string,
+      to: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      _to: string,
+      to: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<number>;
+  };
+
+  burn: {
+    (id: number | BN | string, txDetails?: Truffle.TransactionDetails): Promise<
+      Truffle.TransactionResponse<AllEvents>
+    >;
+    call(
+      id: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<void>;
+    sendTransaction(
+      id: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<string>;
+    estimateGas(
+      id: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
 
   methods: {
-    mintPrivate: {
-      (_to: string, txDetails?: Truffle.TransactionDetails): Promise<
+    mint: {
+      (to: string, txDetails?: Truffle.TransactionDetails): Promise<
         Truffle.TransactionResponse<AllEvents>
       >;
-      call(_to: string, txDetails?: Truffle.TransactionDetails): Promise<void>;
+      call(to: string, txDetails?: Truffle.TransactionDetails): Promise<void>;
       sendTransaction(
-        _to: string,
+        to: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        _to: string,
+        to: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<number>;
+    };
+
+    burn: {
+      (
+        id: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<Truffle.TransactionResponse<AllEvents>>;
+      call(
+        id: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<void>;
+      sendTransaction(
+        id: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<string>;
+      estimateGas(
+        id: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };

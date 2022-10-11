@@ -22,53 +22,40 @@ import "./interfaces/IDNFT.sol";
 
 //todo : grammaire( _ internal, majuscules etc), commentaires
 
-contract DNFT is ERC721{
+contract DNFT0 is ERC721{
 
-    //address immutable governanceAddress;
+    address immutable governanceAddress;
     address debondNFTTokenAddress;
     address dgovAddress;
     address dnft2;
-    address immutable owner;
 
-    constructor(address _owner, address _debondNFTTokenAddress, address _dgovAddress)  ERC721("DBOND", "DBD") {
-        owner = _owner;
+    constructor(address _debondNFTTokenAddress, address _dgovAddress, address _governanceAddress)  ERC721("DBOND", "DBD") {
         debondNFTTokenAddress = _debondNFTTokenAddress;
         dgovAddress = _dgovAddress;
+        governanceAddress = _governanceAddress;
     }
 
-    function initialize(address _dnft2) external {
-        require(msg.sender == owner);
-        dnft2 = _dnft2;
-    }
-
-    /*constructor(address _debondNFTTokenAddress, address _dgovAddress, address _dnft2 ) ERC721("DBOND", "DBD") {
-        
-        dnft2 = _dnft2;
-    }*/
-
-    /*modifier onlyGov {
+    modifier onlyGov {
         require(msg.sender == governanceAddress, "Gov: Need rights");
         _;
-    }    
+    } 
 
-    function mint(address to, uint id) external onlyGov {
-        _safeMint(to, id);
+    function mint(address to) external onlyGov {
+        _safeMint(to, counter);
+        counter++;
     }
 
     function burn(uint id) external {
-        require(msg.sender == ownerOf(id));
+        require(msg.sender == ownerOf(id) || msg.sender == governanceAddress);
         _burn(id);
     }
 
-    function reveal(uint amount, address _to) external {
-        IERC20(debondNFTTokenAddress).transfer(msg.sender, amount *1000000000000000000); //safeTransfer
-        for (uint i; i < amount - 1; i++) {
-            //uint randomId = RandomNumber.getRandomNumber();
-            //_safeMint(_to, randomId);
-        }
-    }*/
+    
+
     uint maxNftNumber;
     uint counter;
+
+    
 
     function reveal(uint amount, address _to) external {
         require(counter + amount < maxNftNumber);
@@ -88,21 +75,5 @@ contract DNFT is ERC721{
             counter ++;
         }
 
-    }
-
-    function compose (address _to, uint[] memory ids) external {
-        require(ids.length == 10);
-        for (uint i; i < ids.length - 1; i++) {
-            _safeTransfer(_to, address(this), ids[i], bytes(""));
-        }
-        IDNFT(dnft2).mintPrivate(_to);
-    }
-
-
-
-
-
-
-
-        
+    }        
 }

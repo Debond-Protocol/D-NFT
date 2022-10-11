@@ -5,12 +5,12 @@
 import BN from "bn.js";
 import { EventData, PastEventOptions } from "web3-eth-contract";
 
-export interface DNFT2Contract extends Truffle.Contract<DNFT2Instance> {
+export interface DNFT1Contract extends Truffle.Contract<DNFT1Instance> {
   "new"(
     _owner: string,
     _governanceAddress: string,
     meta?: Truffle.TransactionDetails
-  ): Promise<DNFT2Instance>;
+  ): Promise<DNFT1Instance>;
 }
 
 export interface Approval {
@@ -51,7 +51,7 @@ export interface Transfer {
 
 type AllEvents = Approval | ApprovalForAll | Transfer;
 
-export interface DNFT2Instance extends Truffle.ContractInstance {
+export interface DNFT1Instance extends Truffle.ContractInstance {
   /**
    * See {IERC721-approve}.
    */

@@ -5,17 +5,30 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_to",
+          "name": "to",
           "type": "address"
         }
       ],
-      "name": "mintPrivate",
+      "name": "mint",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "burn",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"}],\"name\":\"mintPrivate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/interfaces/IDNFT.sol\":\"IDNFT\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000},\"remappings\":[]},\"sources\":{\"project:/contracts/interfaces/IDNFT.sol\":{\"keccak256\":\"0x7ff562091278715a7f80b44ce8da5cb3e323b008b00d7eec1de53d1d93d91c46\",\"urls\":[\"bzz-raw://25d8a176c92d7e675d6e9e429a1f50dff4f807b3159158ac33fa98224fdd041e\",\"dweb:/ipfs/Qmect3LyXoqPC8TEa8WFaWUw8Hq2LpXoJrEYquKqQ2PUDj\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"burn\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/interfaces/IDNFT.sol\":\"IDNFT\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000},\"remappings\":[]},\"sources\":{\"project:/contracts/interfaces/IDNFT.sol\":{\"keccak256\":\"0xd5a1fe148c0092678c1c9ab5abb56bbb984cdc6f33a90deaa41908ce57f9a4b5\",\"urls\":[\"bzz-raw://3ba28957859184100ce79130c0d637340e752d4f2c1e59dfdd1d317527bd3205\",\"dweb:/ipfs/QmZFqPxYoFu1jD3ZxRVu7uvi5W2ubHoxaxGTbqNy52k5Ts\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -23,27 +36,27 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity 0.8.17;\n\ninterface IDNFT {\n    function mintPrivate(address _to) external;\n}",
+  "source": "pragma solidity 0.8.17;\n\ninterface IDNFT {\n    function mint(address to) external;\n\n    function burn(uint id) external;\n}",
   "sourcePath": "/home/fic2linux/Crypto/Debond/D-NFT/contracts/interfaces/IDNFT.sol",
   "ast": {
     "absolutePath": "project:/contracts/interfaces/IDNFT.sol",
     "exportedSymbols": {
       "IDNFT": [
-        4516
+        2675
       ]
     },
-    "id": 4517,
+    "id": 2676,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 4510,
+        "id": 2664,
         "literals": [
           "solidity",
           "0.8",
           ".17"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:29"
+        "src": "0:23:19"
       },
       {
         "abstract": false,
@@ -52,36 +65,36 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 4516,
+        "id": 2675,
         "linearizedBaseContracts": [
-          4516
+          2675
         ],
         "name": "IDNFT",
-        "nameLocation": "35:5:29",
+        "nameLocation": "35:5:19",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "functionSelector": "06c723db",
-            "id": 4515,
+            "functionSelector": "6a627842",
+            "id": 2669,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
-            "name": "mintPrivate",
-            "nameLocation": "56:11:29",
+            "name": "mint",
+            "nameLocation": "56:4:19",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4513,
+              "id": 2667,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4512,
+                  "id": 2666,
                   "mutability": "mutable",
-                  "name": "_to",
-                  "nameLocation": "76:3:29",
+                  "name": "to",
+                  "nameLocation": "69:2:19",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4515,
-                  "src": "68:11:29",
+                  "scope": 2669,
+                  "src": "61:10:19",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -89,10 +102,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 4511,
+                    "id": 2665,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "68:7:29",
+                    "src": "61:7:19",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -102,27 +115,82 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "67:13:29"
+              "src": "60:12:19"
             },
             "returnParameters": {
-              "id": 4514,
+              "id": 2668,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "89:0:29"
+              "src": "81:0:19"
             },
-            "scope": 4516,
-            "src": "47:43:29",
+            "scope": 2675,
+            "src": "47:35:19",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "42966c68",
+            "id": 2674,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "burn",
+            "nameLocation": "97:4:19",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2672,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2671,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "107:2:19",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2674,
+                  "src": "102:7:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2670,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "102:4:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "101:9:19"
+            },
+            "returnParameters": {
+              "id": 2673,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "119:0:19"
+            },
+            "scope": 2675,
+            "src": "88:32:19",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 4517,
-        "src": "25:67:29",
+        "scope": 2676,
+        "src": "25:97:19",
         "usedErrors": []
       }
     ],
-    "src": "0:92:29"
+    "src": "0:122:19"
   },
   "compiler": {
     "name": "solc",
@@ -130,7 +198,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.9",
-  "updatedAt": "2022-10-10T12:28:08.141Z",
+  "updatedAt": "2022-10-11T12:57:36.520Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

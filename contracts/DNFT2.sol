@@ -21,52 +21,29 @@ import "./interfaces/IDNFT.sol";
 
 contract DNFT2 is ERC721, IDNFT{
 
-    //address immutable governanceAddress;
-    //address immutable debondNFTTokenAddress;
-    //address immutable dgovAddress;
     address  dnft1;
     address  dnft3;
-    address immutable owner;
+    address immutable governanceAddress;
 
-    constructor(address _owner) ERC721("Debond NFT2", "DNFT2") {
-        owner = _owner;
+    constructor(address _governanceAddress) ERC721("Debond NFT2", "DNFT2") {
+        governanceAddress = _governanceAddress;
     }
-    function initialize(address _dnft1, address _dnft3 ) external {
-        require(msg.sender == owner);
-        dnft1 = _dnft1;
-        dnft3 = _dnft3;
+
+    modifier onlyGov {
+        require(msg.sender == governanceAddress, "Gov: Need rights");
+        _;
+    } 
+
+    function mint(address to) external onlyGov {
+        _safeMint(to, counter);
+        counter++;
+    }
+
+    function burn(uint id) external {
+        require(msg.sender == ownerOf(id));
+        _burn(id);
     }
 
     uint maxNftNumber;
     uint counter;
-
-
-
-    function compose (address _to, uint[] memory ids) external {
-        require(ids.length == 10);
-        for (uint i; i < ids.length - 1; i++) {
-            _safeTransfer(_to, address(this), ids[i], bytes(""));
-        }
-        IDNFT(dnft3).mintPrivate(_to);
-    }
-
-    function mintPrivate(address _to) external {
-        require(msg.sender == dnft1);
-        _safeMint(_to, counter);
-        counter++;
-    }
-
-    /*function mint(address to) external {
-        require(msg.sender == dnft1);
-        _safeMint(to, counter);
-        counter++;
-    }*/
-
-
-
-
-
-
-
-        
 }
