@@ -18,4 +18,8 @@ contract MysteryBoxTest is ERC20 {
         address airdropAddress,
         address exchangeAddress
     ) ERC20("MysteryBoxTest", "MTB") {}
+
+    function mint(address _to, uint amount) external {
+        _mint(_to, amount);
+    }
 }

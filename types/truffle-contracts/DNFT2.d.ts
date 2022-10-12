@@ -7,7 +7,6 @@ import { EventData, PastEventOptions } from "web3-eth-contract";
 
 export interface DNFT2Contract extends Truffle.Contract<DNFT2Instance> {
   "new"(
-    _owner: string,
     _governanceAddress: string,
     meta?: Truffle.TransactionDetails
   ): Promise<DNFT2Instance>;

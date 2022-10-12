@@ -6,7 +6,6 @@ import { AccessControlContract } from "./AccessControl";
 import { DBITContract } from "./DBIT";
 import { DBITTestContract } from "./DBITTest";
 import { DebondTokenContract } from "./DebondToken";
-import { DNFTContract } from "./DNFT";
 import { DNFT0Contract } from "./DNFT0";
 import { DNFT1Contract } from "./DNFT1";
 import { DNFT2Contract } from "./DNFT2";
@@ -14,7 +13,7 @@ import { DNFT3Contract } from "./DNFT3";
 import { ERC165Contract } from "./ERC165";
 import { ERC20Contract } from "./ERC20";
 import { ERC721Contract } from "./ERC721";
-import { GouvernanceContract } from "./Gouvernance";
+import { GovernanceContract } from "./Governance";
 import { GovernanceOwnableContract } from "./GovernanceOwnable";
 import { IAccessControlContract } from "./IAccessControl";
 import { IActivableContract } from "./IActivable";
@@ -43,7 +42,6 @@ declare global {
       require(name: "DBIT"): DBITContract;
       require(name: "DBITTest"): DBITTestContract;
       require(name: "DebondToken"): DebondTokenContract;
-      require(name: "DNFT"): DNFTContract;
       require(name: "DNFT0"): DNFT0Contract;
       require(name: "DNFT1"): DNFT1Contract;
       require(name: "DNFT2"): DNFT2Contract;
@@ -51,7 +49,7 @@ declare global {
       require(name: "ERC165"): ERC165Contract;
       require(name: "ERC20"): ERC20Contract;
       require(name: "ERC721"): ERC721Contract;
-      require(name: "gouvernance"): GouvernanceContract;
+      require(name: "governance"): GovernanceContract;
       require(name: "GovernanceOwnable"): GovernanceOwnableContract;
       require(name: "IAccessControl"): IAccessControlContract;
       require(name: "IActivable"): IActivableContract;
@@ -82,7 +80,6 @@ export { AccessControlContract, AccessControlInstance } from "./AccessControl";
 export { DBITContract, DBITInstance } from "./DBIT";
 export { DBITTestContract, DBITTestInstance } from "./DBITTest";
 export { DebondTokenContract, DebondTokenInstance } from "./DebondToken";
-export { DNFTContract, DNFTInstance } from "./DNFT";
 export { DNFT0Contract, DNFT0Instance } from "./DNFT0";
 export { DNFT1Contract, DNFT1Instance } from "./DNFT1";
 export { DNFT2Contract, DNFT2Instance } from "./DNFT2";
@@ -90,7 +87,7 @@ export { DNFT3Contract, DNFT3Instance } from "./DNFT3";
 export { ERC165Contract, ERC165Instance } from "./ERC165";
 export { ERC20Contract, ERC20Instance } from "./ERC20";
 export { ERC721Contract, ERC721Instance } from "./ERC721";
-export { GouvernanceContract, GouvernanceInstance } from "./Gouvernance";
+export { GovernanceContract, GovernanceInstance } from "./Governance";
 export {
   GovernanceOwnableContract,
   GovernanceOwnableInstance,

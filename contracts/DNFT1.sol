@@ -28,7 +28,7 @@ contract DNFT1 is ERC721, IDNFT{
         governanceAddress = _governanceAddress;
     }
 
-    uint maxNftNumber;
+    uint maxNftNumber = 10000;
     uint counter;
 
     modifier onlyGov {

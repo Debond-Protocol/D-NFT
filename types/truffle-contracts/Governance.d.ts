@@ -5,18 +5,18 @@
 import BN from "bn.js";
 import { EventData, PastEventOptions } from "web3-eth-contract";
 
-export interface GouvernanceContract
-  extends Truffle.Contract<GouvernanceInstance> {
+export interface GovernanceContract
+  extends Truffle.Contract<GovernanceInstance> {
   "new"(
     _debondNFTTokenAddress: string,
     _owner: string,
     meta?: Truffle.TransactionDetails
-  ): Promise<GouvernanceInstance>;
+  ): Promise<GovernanceInstance>;
 }
 
 type AllEvents = never;
 
-export interface GouvernanceInstance extends Truffle.ContractInstance {
+export interface GovernanceInstance extends Truffle.ContractInstance {
   initialize: {
     (
       _dnft0: string,

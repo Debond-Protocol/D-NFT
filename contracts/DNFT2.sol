@@ -44,6 +44,6 @@ contract DNFT2 is ERC721, IDNFT{
         _burn(id);
     }
 
-    uint maxNftNumber;
+    uint maxNftNumber = 10000;
     uint counter;
 }

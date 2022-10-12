@@ -22,7 +22,7 @@ import "./interfaces/IDNFT.sol";
 
 
 
-contract gouvernance{
+contract governance{
 
     
     address dnft0;

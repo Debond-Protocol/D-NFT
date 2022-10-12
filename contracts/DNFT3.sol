@@ -32,7 +32,7 @@ contract DNFT3 is ERC721, IDNFT{
         dnft2 = _dnft2;
     }
 
-    uint maxNftNumber;
+    uint maxNftNumber = 10000;
     uint counter;
 
     modifier onlyGov {
