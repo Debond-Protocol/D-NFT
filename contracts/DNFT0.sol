@@ -16,6 +16,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "./RandomNumber.sol";
 import "./interfaces/IDNFT.sol";
 
@@ -59,8 +60,8 @@ contract DNFT0 is ERC721{
 
     function reveal(uint amount, address _to) external {
         require(counter + amount < maxNftNumber);
-        IERC20(debondNFTTokenAddress).transfer(msg.sender, amount * (1 ether)); //safeTransfer
-        for (uint i; i < amount - 1; i++) {
+        IERC20(debondNFTTokenAddress).transferFrom(msg.sender, address(this), amount* (1 ether));//safeTransfer
+        for (uint i; i < amount; i++) {
             _safeMint(_to, counter);
             counter ++;
         }
@@ -69,8 +70,9 @@ contract DNFT0 is ERC721{
 
     function forge(uint amount, address _to) external {
         require(counter + amount < maxNftNumber);
-        IERC20(dgovAddress).transfer(msg.sender, amount *1000000000000000000); //safeTransfer
-        for (uint i; i < amount - 1; i++) {
+        (bool res) = IERC20(dgovAddress).transferFrom(msg.sender, address(this), amount* (1 ether)); //safeTransfer
+        require(res);
+        for (uint i; i < amount; i++) {
             _safeMint(_to, counter);
             counter ++;
         }

@@ -37,16 +37,40 @@ contract('DNFT', async (accounts: string[]) => {
         governanceInstance = await Governance.deployed();
 
         await governanceInstance.initialize(DNFT0.address, DNFT1.address, DNFT2.address, DNFT3.address, {from : owner})
-        await dBITTestInstance.mintCollateralisedSupply(owner, web3.utils.toWei('2000000000000000000000', 'ether').toString(), {from : bankAddress});
-        await mysteryBoxTestInstance.mint(owner, web3.utils.toWei('2000000000000000000', 'ether').toString(), {from : bankAddress});
+        await dBITTestInstance.mintCollateralisedSupply(owner, web3.utils.toWei('1000', 'ether').toString(), {from : bankAddress});
+        await mysteryBoxTestInstance.mint(owner, web3.utils.toWei('2000', 'ether').toString(), {from : bankAddress});
 
-        const mystBalance = await mysteryBoxTestInstance.balanceOf(owner);
-        console.log(mystBalance.toString())
+        const dbit = await dBITTestInstance.balanceOf(owner);
+        console.log(dbit.toString())
 
     })
 
-    it('reveal nft', async () => {
-        await mysteryBoxTestInstance.approve(dNFT0Instance.address,web3.utils.toWei('20000000000000000', 'ether').toString() )
-        await dNFT0Instance.reveal('1', owner, {from : owner});
+    it('reveal and forge nft', async () => {
+        await mysteryBoxTestInstance.approve(dNFT0Instance.address, web3.utils.toWei('1000', 'ether').toString(), {from : owner});
+        await dNFT0Instance.reveal('30', owner, {from : owner});
+
+        const balance = await (dNFT0Instance.balanceOf(owner));
+        expect((balance.toString())).to.equal('30')
+
+        await dBITTestInstance.approve(dNFT0Instance.address, web3.utils.toWei('2000', 'ether').toString(), {from : owner});
+        await dNFT0Instance.forge('50', owner, {from : owner});
+
+        const balanceBis = await (dNFT0Instance.balanceOf(owner));
+        expect((balanceBis.toString())).to.equal('80')
+
+        const dbitAfter = await dBITTestInstance.balanceOf(owner);
+        expect(dbitAfter.toString()).to.equal(web3.utils.toWei('950', 'ether').toString())
+
+        const mystAfter = await mysteryBoxTestInstance.balanceOf(owner);
+        expect(mystAfter.toString()).to.equal(web3.utils.toWei('1970', 'ether').toString())
+    })
+
+    it('compose nft', async () => {
+        await governanceInstance.compose(owner, [0,1,2,3,4,5,6,7,8,9],0);
+        const balance1 = await dNFT1Instance.balanceOf(owner);
+        expect(balance1.toString()).to.equal('1');
+
+        const balance0 = await dNFT0Instance.balanceOf(owner);
+        expect(balance0.toString()).to.equal('70');
     })
 });

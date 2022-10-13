@@ -56,7 +56,7 @@ contract governance{
 
     function compose (address _to, uint[] memory ids, uint typeToBurn) external {
         require(ids.length == 10);
-        for (uint i; i < ids.length - 1; i++) {
+        for (uint i; i < ids.length; i++) {
             IDNFT(tier[typeToBurn]).burn(ids[i]);
         }
         IDNFT(tier[typeToBurn +1]).mint(_to);
