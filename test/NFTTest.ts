@@ -46,7 +46,7 @@ contract('DNFT', async (accounts: string[]) => {
     })
 
     it('reveal nft', async () => {
-        //await mysteryBoxTestInstance.approve(dNFT0Instance.address,web3.utils.toWei('20000000000000000', 'ether').toString() )
-        await dNFT0Instance.reveal(1, owner, {from : owner});
+        await mysteryBoxTestInstance.approve(dNFT0Instance.address,web3.utils.toWei('20000000000000000', 'ether').toString() )
+        await dNFT0Instance.reveal('1', owner, {from : owner});
     })
 });

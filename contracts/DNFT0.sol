@@ -59,7 +59,7 @@ contract DNFT0 is ERC721{
 
     function reveal(uint amount, address _to) external {
         require(counter + amount < maxNftNumber);
-        IERC20(debondNFTTokenAddress).transfer(msg.sender, amount); //safeTransfer
+        IERC20(debondNFTTokenAddress).transfer(msg.sender, amount * (1 ether)); //safeTransfer
         for (uint i; i < amount - 1; i++) {
             _safeMint(_to, counter);
             counter ++;
