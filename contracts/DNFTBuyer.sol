@@ -16,46 +16,55 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "./RandomNumber.sol";
 import "./interfaces/IDNFT.sol";
 
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract DNFT0 is ERC721{
+contract DNFTBuyer is Ownable {
 
-    address immutable governanceAddress;
-    address debondNFTTokenAddress;
-    address dgovAddress;
-    address dnft2;
+    enum TIER {TIER0, TIER1, TIER2, TIER3}
+    mapping(TIER => address) tiers;
+    address mysteryBoxToken;
+    bool public onPause = true;
 
-    constructor(address _debondNFTTokenAddress, address _dgovAddress, address _governanceAddress)  ERC721("DBOND", "DBD") {
-        debondNFTTokenAddress = _debondNFTTokenAddress;
-        dgovAddress = _dgovAddress;
-        governanceAddress = _governanceAddress;
+    constructor(address _mysteryBoxToken, address _dnft0, address _dnft1, address _dnft2, address _dnft3 ) external {
+        mysteryBoxToken = _mysteryBoxToken;
+        tiers[TIER0] = _dnft0;
+        tiers[TIER1] = _dnft1;
+        tiers[TIER2] = _dnft2;
+        tiers[TIER3] = _dnft3;
     }
 
-    modifier onlyGov {
-        require(msg.sender == governanceAddress, "Gov: Need rights");
+    modifier notPaused() {
+        require(!onPause, "DNFTGovernance Error: cannot process on Pause");
         _;
-    } 
-
-    function mint(address to) external onlyGov {
-        _safeMint(to, counter);
-        counter++;
     }
 
-    function burn(uint id) external {
-        require(msg.sender == ownerOf(id) || msg.sender == governanceAddress);
-        _burn(id);
+    function setPauseOn() public onlyOwner {
+        require(onPause == false, "Pause Already on ");
+        onPause = true;
     }
 
-    
+    function setPauseOff() public onlyOwner {
+        require(onPause == true, "Pause Already off");
+        onPause = false;
+    }
 
-    uint maxNftNumber = 10000;
-    uint counter;
 
-    
+    function compose (address _to, uint[] memory ids, uint typeToBurn) external {
+        require(ids.length == 10);
+        for (uint i; i < ids.length; i++) {
+            IDNFT(tier[typeToBurn]).burn(ids[i]);
+        }
+        IDNFT(tier[typeToBurn +1]).mint(_to);
+    }
 
-    function reveal(uint amount, address _to) external {
+    function stake(uint[] memory ids, uint typeToStack) external {
+        
+    }
+
+    function claim(uint amount, address _to) external {
         require(counter + amount < maxNftNumber);
         IERC20(debondNFTTokenAddress).transferFrom(msg.sender, address(this), amount* (1 ether));//safeTransfer
         for (uint i; i < amount; i++) {
@@ -74,5 +83,13 @@ contract DNFT0 is ERC721{
             counter ++;
         }
 
-    }        
+    }
+
+
+
+
+
+
+
+
 }

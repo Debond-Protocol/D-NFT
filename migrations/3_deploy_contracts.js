@@ -1,25 +1,29 @@
-const DNFT0 = artifacts.require("DNFT0");
-const DNFT1 = artifacts.require("DNFT1");
-const DNFT2 = artifacts.require("DNFT2");
-const DNFT3 = artifacts.require("DNFT3");
-const Governance = artifacts.require("governance");
-const DBITTest = artifacts.require("DBITTest");
-const MysteryBoxTest = artifacts.require("MysteryBoxTest");
+const DNFTFactory = artifacts.require("TccERC721Factory");
+const DNFTGovernance = artifacts.require("TccBuyer");
+const DNFTERC721 = artifacts.require("TccERC721");
 
+module.exports = async function (deployer, accounts) {
+  await deployer.deploy(DNFTFactory);
+  const tccERC721FactoryInstance = await DNFTFactory.deployed();
+  await tccERC721FactoryInstance.cloneTccERC721("NOREAGA", "N.O.R.E");
+  await tccERC721FactoryInstance.cloneTccERC721("DJ EFN", "EFN");
+  await tccERC721FactoryInstance.cloneTccERC721("DRINK CHAMPS", "DC");
 
+  const noreAddress = await tccERC721FactoryInstance.clonedContracts(0);
+  const efnAddress = await tccERC721FactoryInstance.clonedContracts(1);
+  const dcAddress = await tccERC721FactoryInstance.clonedContracts(2);
 
+  await deployer.deploy(DNFTGovernance, noreAddress, efnAddress, dcAddress).then(() => {
+    console.log(`TccBuyer deployed with NoreAddress: ${noreAddress}, EfnAddress: ${efnAddress}, DrinkChampsAddress: ${dcAddress}`)
+  })
 
-module.exports = async function (deployer, networks, accounts) {
+  const noreERC721Instance = await DNFTERC721.at(noreAddress)
+  const efnERC721Instance = await DNFTERC721.at(efnAddress)
+  const dcERC721Instance = await DNFTERC721.at(dcAddress)
 
-  const [governanceAddress, bankAddress, airdropAddress, exchangeAddress, owner] = accounts;
-
-  const dbit = await DBITTest.deployed();
-  const myst = await MysteryBoxTest.deployed();
-  await deployer.deploy(Governance, myst.address, owner)
-
-  const gov = await Governance.deployed();
-  await deployer.deploy(DNFT0, myst.address, dbit.address, gov.address);
-  await deployer.deploy(DNFT1, gov.address);
-  await deployer.deploy(DNFT2, gov.address);
-  await deployer.deploy(DNFT3, gov.address);
+  await noreERC721Instance.grantRole(await noreERC721Instance.MINTER_ROLE(), DNFTGovernance.address)
+  await efnERC721Instance.grantRole(await efnERC721Instance.MINTER_ROLE(), DNFTGovernance.address)
+  await dcERC721Instance.grantRole(await dcERC721Instance.MINTER_ROLE(), DNFTGovernance.address)
 };
+
+// TCC BUYER PROD: 0xd796a8754D7bc88EF6258E48d1D0Fc2Af0e533c7
