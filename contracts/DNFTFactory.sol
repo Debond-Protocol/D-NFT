@@ -14,12 +14,12 @@ contract DNFTFactory is Ownable {
     address[] public clonedContracts;
 
     constructor() {
-        impl = address(new DNFT());
+        impl = address(new DNFTERC721());
     }
 
-    function cloneTccERC721(string calldata _name, string calldata _symbol) external onlyOwner   {
+    function cloneTccERC721(string calldata _name, string calldata _symbol, string calldata _notRevealedURI, uint _totalSupply) external onlyOwner   {
         address payable clone = payable(Clones.clone(impl));
-        TccERC721(clone).initialize(_name, _symbol, msg.sender);
+        DNFTERC721(clone).initialize(_name, _symbol, _notRevealedURI, _totalSupply, msg.sender);
         clonedContracts.push(clone);
     }
 }

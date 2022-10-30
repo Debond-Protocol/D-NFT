@@ -65,15 +65,30 @@ contract DNFTERC721 is ERC721Upgradeable, OwnableUpgradeable, AccessControlUpgra
 
     function mint(address to, uint256 quantity) external onlyRole(MINTER_ROLE) canMint(quantity)
     {
-        _mintDNFT(to, quantity);
+        require(quantity > 0, "You need to indicate a number of nft to mint greater than 0");
+        for (uint256 i= 0; i < quantity; i++)
+        {
+            _safeMint(to, Counters.current(_tokenId));
+            Counters.increment(_tokenId);
+        }
+        emit NftMinted(_msgSender(), to, quantity);
     }
 
-    function burn(uint256[] memory tokenIds) external onlyRole(MINTER_ROLE) {
+    function burn(uint256[] calldata tokenIds) external onlyRole(MINTER_ROLE) {
         for (uint i; i < tokenIds.length; i++) {
             require(_exists(tokenIds[i]), "DNFT Error: The given id is not found");
             _burn(tokenIds[i]);
         }
-        NftBurned(_msgSender(), tokenIds);
+        emit NftBurned(_msgSender(), tokenIds);
+    }
+
+    function isOwnerOf(address owner, uint256[] calldata tokenIds) external view returns(bool) {
+        for (uint i; i < tokenIds.length; i++) {
+            if(ownerOf(tokenIds[i]) != owner) {
+                return false;
+            }
+        }
+        return true;
     }
 
     function setBaseURI(string memory _newBaseURI) public onlyOwner {
@@ -84,21 +99,7 @@ contract DNFTERC721 is ERC721Upgradeable, OwnableUpgradeable, AccessControlUpgra
         return baseURI;
     }
 
-    function totalSupply() external view returns (uint256) {
-        return _totalSupply;
-    }
-
     function tokenCount() external view returns (uint256) {
         return Counters.current(_tokenId);
-    }
-
-    function _mintDNFT(address to, uint256 quantity) internal {
-        require(quantity > 0, "You need to indicate a number of nft to mint greater than 0");
-        for (uint256 i= 0; i < quantity; i++)
-        {
-            _safeMint(to, Counters.current(_tokenId));
-            Counters.increment(_tokenId);
-        }
-        emit NftMinted(_msgSender(), to, quantity);
     }
 }

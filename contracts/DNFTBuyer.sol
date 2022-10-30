@@ -14,12 +14,10 @@ pragma solidity ^0.8.0;
     limitations under the License.
 */
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./RandomNumber.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "./interfaces/IDNFT.sol";
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract DNFTBuyer is Ownable {
 
@@ -27,13 +25,17 @@ contract DNFTBuyer is Ownable {
     mapping(TIER => address) tiers;
     address mysteryBoxToken;
     bool public onPause = true;
+    uint256 constant TIER1_COMPOSE = 10;
+    uint256 constant TIER2_COMPOSE = 5;
+    uint256 constant TIER3_COMPOSE = 2;
+    uint256 BUY_PRICE = 25 * 10**16;
 
-    constructor(address _mysteryBoxToken, address _dnft0, address _dnft1, address _dnft2, address _dnft3 ) external {
+    constructor(address _mysteryBoxToken, address _dnft0, address _dnft1, address _dnft2, address _dnft3 ) {
         mysteryBoxToken = _mysteryBoxToken;
-        tiers[TIER0] = _dnft0;
-        tiers[TIER1] = _dnft1;
-        tiers[TIER2] = _dnft2;
-        tiers[TIER3] = _dnft3;
+        tiers[TIER.TIER0] = _dnft0;
+        tiers[TIER.TIER1] = _dnft1;
+        tiers[TIER.TIER2] = _dnft2;
+        tiers[TIER.TIER3] = _dnft3;
     }
 
     modifier notPaused() {
@@ -52,37 +54,43 @@ contract DNFTBuyer is Ownable {
     }
 
 
-    function compose (address _to, uint[] memory ids, uint typeToBurn) external {
-        require(ids.length == 10);
-        for (uint i; i < ids.length; i++) {
-            IDNFT(tier[typeToBurn]).burn(ids[i]);
-        }
-        IDNFT(tier[typeToBurn +1]).mint(_to);
+    function composeTier1(address _to, uint[] calldata tokenIds) external {
+        require(tokenIds.length == TIER1_COMPOSE);
+        require(IDNFT(tiers[TIER.TIER0]).isOwnerOf(msg.sender, tokenIds), "caller not owner of token ids given");
+        _processCompose(_to, tokenIds, TIER.TIER0, TIER.TIER1);
     }
 
-    function stake(uint[] memory ids, uint typeToStack) external {
-        
+    function composeTier2(address _to, uint[] calldata tokenIds) external {
+        require(tokenIds.length == TIER2_COMPOSE);
+        require(IDNFT(tiers[TIER.TIER1]).isOwnerOf(msg.sender, tokenIds), "caller not owner of token ids given");
+        _processCompose(_to, tokenIds, TIER.TIER1, TIER.TIER2);
     }
 
-    function claim(uint amount, address _to) external {
-        require(counter + amount < maxNftNumber);
-        IERC20(debondNFTTokenAddress).transferFrom(msg.sender, address(this), amount* (1 ether));//safeTransfer
-        for (uint i; i < amount; i++) {
-            _safeMint(_to, counter);
-            counter ++;
-        }
-
+    function composeTier3(address _to, uint[] calldata tokenIds) external {
+        require(tokenIds.length == TIER3_COMPOSE);
+        require(IDNFT(tiers[TIER.TIER2]).isOwnerOf(msg.sender, tokenIds), "caller not owner of token ids given");
+        _processCompose(_to, tokenIds, TIER.TIER2, TIER.TIER3);
     }
 
-    function forge(uint amount, address _to) external {
-        require(counter + amount < maxNftNumber);
-        (bool res) = IERC20(dgovAddress).transferFrom(msg.sender, address(this), amount* (1 ether)); //safeTransfer
-        require(res);
-        for (uint i; i < amount; i++) {
-            _safeMint(_to, counter);
-            counter ++;
-        }
+    function claim(address _to, uint quantity) external {
+        IDNFT(tiers[TIER.TIER0]).mint(_to, quantity);
+        IERC20(mysteryBoxToken).transferFrom(_to, address(this), quantity);
+    }
 
+    function buy(address _to, uint quantity) external payable {
+        require(msg.value == BUY_PRICE * quantity, "DNFTBuyer: not the right amount of ETH sent to buy");
+        IDNFT(tiers[TIER.TIER0]).mint(_to, quantity);
+    }
+
+    function withdrawToOwner() external onlyOwner {
+        uint256 _amount = address(this).balance;
+        require(_amount > 0, "No ETH to Withdraw");
+        payable(_msgSender()).transfer(_amount);
+    }
+
+    function _processCompose(address _to, uint[] calldata ids, TIER tierLevelToBurn, TIER tierLevelToMint) internal {
+        IDNFT(tiers[tierLevelToBurn]).burn(ids);
+        IDNFT(tiers[tierLevelToMint]).mint(_to, 1);
     }
 
 
