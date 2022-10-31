@@ -17,7 +17,7 @@ contract DNFTFactory is Ownable {
         impl = address(new DNFTERC721());
     }
 
-    function cloneTccERC721(string calldata _name, string calldata _symbol, string calldata _notRevealedURI, uint _totalSupply) external onlyOwner   {
+    function cloneDNFTERC721(string calldata _name, string calldata _symbol, string calldata _notRevealedURI, uint _totalSupply) external onlyOwner   {
         address payable clone = payable(Clones.clone(impl));
         DNFTERC721(clone).initialize(_name, _symbol, _notRevealedURI, _totalSupply, msg.sender);
         clonedContracts.push(clone);

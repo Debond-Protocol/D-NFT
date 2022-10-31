@@ -54,30 +54,30 @@ contract DNFTBuyer is Ownable {
     }
 
 
-    function composeTier1(address _to, uint[] calldata tokenIds) external {
+    function composeTier1(address _to, uint[] calldata tokenIds) external notPaused {
         require(tokenIds.length == TIER1_COMPOSE);
         require(IDNFT(tiers[TIER.TIER0]).isOwnerOf(msg.sender, tokenIds), "caller not owner of token ids given");
         _processCompose(_to, tokenIds, TIER.TIER0, TIER.TIER1);
     }
 
-    function composeTier2(address _to, uint[] calldata tokenIds) external {
+    function composeTier2(address _to, uint[] calldata tokenIds) external notPaused {
         require(tokenIds.length == TIER2_COMPOSE);
         require(IDNFT(tiers[TIER.TIER1]).isOwnerOf(msg.sender, tokenIds), "caller not owner of token ids given");
         _processCompose(_to, tokenIds, TIER.TIER1, TIER.TIER2);
     }
 
-    function composeTier3(address _to, uint[] calldata tokenIds) external {
+    function composeTier3(address _to, uint[] calldata tokenIds) external notPaused {
         require(tokenIds.length == TIER3_COMPOSE);
         require(IDNFT(tiers[TIER.TIER2]).isOwnerOf(msg.sender, tokenIds), "caller not owner of token ids given");
         _processCompose(_to, tokenIds, TIER.TIER2, TIER.TIER3);
     }
 
-    function claim(address _to, uint quantity) external {
+    function claim(address _to, uint quantity) external notPaused {
         IDNFT(tiers[TIER.TIER0]).mint(_to, quantity);
         IERC20(mysteryBoxToken).transferFrom(_to, address(this), quantity);
     }
 
-    function buy(address _to, uint quantity) external payable {
+    function buy(address _to, uint quantity) external payable notPaused {
         require(msg.value == BUY_PRICE * quantity, "DNFTBuyer: not the right amount of ETH sent to buy");
         IDNFT(tiers[TIER.TIER0]).mint(_to, quantity);
     }

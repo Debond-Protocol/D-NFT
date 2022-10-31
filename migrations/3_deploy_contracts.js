@@ -1,29 +1,35 @@
-const DNFTFactory = artifacts.require("TccERC721Factory");
-const DNFTGovernance = artifacts.require("TccBuyer");
-const DNFTERC721 = artifacts.require("TccERC721");
+const DNFTFactory = artifacts.require("DNFTFactory");
+const DNFTBuyer = artifacts.require("DNFTBuyer");
+const DNFTERC721 = artifacts.require("DNFTERC721");
+const MysteryBoxTest = artifacts.require("MysteryBoxTest");
+
 
 module.exports = async function (deployer, accounts) {
   await deployer.deploy(DNFTFactory);
-  const tccERC721FactoryInstance = await DNFTFactory.deployed();
-  await tccERC721FactoryInstance.cloneTccERC721("NOREAGA", "N.O.R.E");
-  await tccERC721FactoryInstance.cloneTccERC721("DJ EFN", "EFN");
-  await tccERC721FactoryInstance.cloneTccERC721("DRINK CHAMPS", "DC");
+  const dnftFactoryInstance = await DNFTFactory.deployed();
+  await dnftFactoryInstance.cloneDNFTERC721("D/NFT Tier 0", "D/NFT0", "", 10000);
+  await dnftFactoryInstance.cloneDNFTERC721("D/NFT Tier 1", "D/NFT1", "", 1000);
+  await dnftFactoryInstance.cloneDNFTERC721("D/NFT Tier 2", "D/NFT2", "", 500);
+  await dnftFactoryInstance.cloneDNFTERC721("D/NFT Tier 3", "D/NFT3", "", 100);
 
-  const noreAddress = await tccERC721FactoryInstance.clonedContracts(0);
-  const efnAddress = await tccERC721FactoryInstance.clonedContracts(1);
-  const dcAddress = await tccERC721FactoryInstance.clonedContracts(2);
+  const tier0Address = await dnftFactoryInstance.clonedContracts(0);
+  const tier1Address = await dnftFactoryInstance.clonedContracts(1);
+  const tier2Address = await dnftFactoryInstance.clonedContracts(2);
+  const tier3Address = await dnftFactoryInstance.clonedContracts(3);
 
-  await deployer.deploy(DNFTGovernance, noreAddress, efnAddress, dcAddress).then(() => {
-    console.log(`TccBuyer deployed with NoreAddress: ${noreAddress}, EfnAddress: ${efnAddress}, DrinkChampsAddress: ${dcAddress}`)
+  const mysteryBoxToken = await MysteryBoxTest.deployed();
+
+  await deployer.deploy(DNFTBuyer, mysteryBoxToken.address, tier0Address, tier1Address, tier2Address, tier3Address).then(() => {
+    console.log(`DNFTBuyer deployed with tier0Address: ${tier0Address}, tier1Address: ${tier1Address}, tier2Address: ${tier2Address}, tier3Address: ${tier3Address}`)
   })
 
-  const noreERC721Instance = await DNFTERC721.at(noreAddress)
-  const efnERC721Instance = await DNFTERC721.at(efnAddress)
-  const dcERC721Instance = await DNFTERC721.at(dcAddress)
+  const tier0ERC721Instance = await DNFTERC721.at(tier0Address)
+  const tier1ERC721Instance = await DNFTERC721.at(tier1Address)
+  const tier2ERC721Instance = await DNFTERC721.at(tier2Address)
+  const tier3ERC721Instance = await DNFTERC721.at(tier3Address)
 
-  await noreERC721Instance.grantRole(await noreERC721Instance.MINTER_ROLE(), DNFTGovernance.address)
-  await efnERC721Instance.grantRole(await efnERC721Instance.MINTER_ROLE(), DNFTGovernance.address)
-  await dcERC721Instance.grantRole(await dcERC721Instance.MINTER_ROLE(), DNFTGovernance.address)
+  await tier0ERC721Instance.grantRole(await tier0ERC721Instance.MINTER_ROLE(), DNFTBuyer.address)
+  await tier1ERC721Instance.grantRole(await tier1ERC721Instance.MINTER_ROLE(), DNFTBuyer.address)
+  await tier2ERC721Instance.grantRole(await tier2ERC721Instance.MINTER_ROLE(), DNFTBuyer.address)
+  await tier3ERC721Instance.grantRole(await tier3ERC721Instance.MINTER_ROLE(), DNFTBuyer.address)
 };
-
-// TCC BUYER PROD: 0xd796a8754D7bc88EF6258E48d1D0Fc2Af0e533c7
