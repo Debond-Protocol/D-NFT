@@ -51,14 +51,14 @@ contract('DNFT', async (accounts: string[]) => {
     })
 
     it('Buyer Should be able to purchase DNFT TIER0 with ETH value Price', async () => {
-        await dnftBuyerInstance.buy(buyer, 2, {from: buyer, value: web3.utils.toWei('0.5', 'ether')})
+        await dnftBuyerInstance.buy(buyer, 2, {from: buyer, value: web3.utils.toWei('0.05', 'ether')})
         const buyerDNFT0Balance = (await tier0ERC721Instance.balanceOf(buyer)).toNumber();
 
         assert.isTrue(buyerDNFT0Balance == 2);
     })
 
     it('Holder of DNFT Tier0 Should be able to compose a DNFT Tier1', async () => {
-        await dnftBuyerInstance.buy(buyer, 8, {from: buyer, value: web3.utils.toWei('2', 'ether')})
+        await dnftBuyerInstance.buy(buyer, 8, {from: buyer, value: web3.utils.toWei('0.2', 'ether')})
         const tokenIds = [2,3,4,5,6,7,8,9,10,11];
         await dnftBuyerInstance.composeTier1(buyer, tokenIds, {from: buyer})
         const buyerDNFT0Balance = (await tier0ERC721Instance.balanceOf(buyer)).toNumber();
