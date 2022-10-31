@@ -23,12 +23,12 @@ contract DNFTBuyer is Ownable {
 
     enum TIER {TIER0, TIER1, TIER2, TIER3}
     mapping(TIER => address) tiers;
-    address mysteryBoxToken;
+    address public mysteryBoxToken;
     bool public onPause = true;
-    uint256 constant TIER1_COMPOSE = 10;
-    uint256 constant TIER2_COMPOSE = 5;
-    uint256 constant TIER3_COMPOSE = 2;
-    uint256 BUY_PRICE = 25 * 10**16;
+    uint256 public constant TIER1_COMPOSE = 10;
+    uint256 public constant TIER2_COMPOSE = 5;
+    uint256 public constant TIER3_COMPOSE = 2;
+    uint256 public BUY_PRICE = 25 * 10**15;
 
     constructor(address _mysteryBoxToken, address _dnft0, address _dnft1, address _dnft2, address _dnft3 ) {
         mysteryBoxToken = _mysteryBoxToken;
