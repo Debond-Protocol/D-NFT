@@ -15,21 +15,15 @@ module.exports = {
       port: 8545,
       network_id: "*"
     },
-       rinkeby: {
+       goerli: {
       provider: function() {
-        return new HDWalletProvider(process.env.TESTNET_PRIVATE_KEY, `https://rinkeby.infura.io/v3/${process.env.INFURA_ACCESS_TOKEN}`);
+        return new HDWalletProvider(process.env.TESTNET_PRIVATE_KEY, `wss://goerli.infura.io/ws/v3/${process.env.INFURA_ACCESS_TOKEN}`);
       },
-      network_id: 4,
+      network_id: 5,
       // gas: 30000000, //from ganache-cli output
       // gasPrice: web3.utils.toWei('1', 'gwei')
-    },
-    ropsten: {
-      provider: function() {
-        return new HDWalletProvider(process.env.TESTNET_PRIVATE_KEY, `https://ropsten.infura.io/v3/${process.env.INFURA_ACCESS_TOKEN}`);
-      },
-      network_id: 3,
-      // gas: 30000000, //from ganache-cli output
-      gasPrice: web3.utils.toWei('1', 'gwei')
+     networkCheckTimeout: 1000000,
+     timeoutBlocks: 200
     }
   },
   mocha: {
