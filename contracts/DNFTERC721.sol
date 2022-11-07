@@ -24,7 +24,9 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "./interfaces/IDNFT.sol";
 
 
-contract DNFTERC721 is ERC721Upgradeable, OwnableUpgradeable, AccessControlUpgradeable, IDNFT{
+contract DNFTERC721 is ERC721Upgradeable, OwnableUpgradeable, AccessControlUpgradeable, IDNFT {
+    using Strings for uint256;
+
 
     // EVENTS
     event WithdrawnToOwner(address indexed _operator, uint256 _ethWei);
@@ -42,6 +44,7 @@ contract DNFTERC721 is ERC721Upgradeable, OwnableUpgradeable, AccessControlUpgra
         string memory _name,
         string memory _symbol,
         string memory _notRevealedURI,
+        string memory __baseURI,
         uint _totalSupply,
         address _owner
     ) public initializer {
@@ -51,6 +54,7 @@ contract DNFTERC721 is ERC721Upgradeable, OwnableUpgradeable, AccessControlUpgra
         _grantRole(MINTER_ROLE, _owner);
         totalSupply = _totalSupply;
         notRevealedURI = _notRevealedURI;
+        baseURI = __baseURI;
     }
 
 
@@ -95,8 +99,27 @@ contract DNFTERC721 is ERC721Upgradeable, OwnableUpgradeable, AccessControlUpgra
         baseURI = _newBaseURI;
     }
 
+    function reveal() public onlyOwner {
+        revealed = true;
+    }
+
+    function setNotRevealedURI(string memory _newNotRevealedURI) public onlyOwner {
+        notRevealedURI = _newNotRevealedURI;
+    }
+
     function _baseURI() internal view override returns (string memory) {
         return baseURI;
+    }
+
+    function tokenURI(uint256 tokenId) public view override returns(string memory) {
+        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+
+        if(!revealed) {
+            return notRevealedURI;
+        }
+
+        string memory currentBaseURI = _baseURI();
+        return bytes(currentBaseURI).length > 0 ? string(abi.encodePacked(currentBaseURI, tokenId.toString())) : "";
     }
 
     function tokenCount() external view returns (uint256) {

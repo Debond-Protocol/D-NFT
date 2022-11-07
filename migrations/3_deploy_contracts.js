@@ -7,10 +7,10 @@ const MysteryBoxTest = artifacts.require("MysteryBoxTest");
 module.exports = async function (deployer, accounts) {
   await deployer.deploy(DNFTFactory);
   const dnftFactoryInstance = await DNFTFactory.deployed();
-  await dnftFactoryInstance.cloneDNFTERC721("D/NFT Tier 0", "D/NFT0", "", 10000);
-  await dnftFactoryInstance.cloneDNFTERC721("D/NFT Tier 1", "D/NFT1", "", 1000);
-  await dnftFactoryInstance.cloneDNFTERC721("D/NFT Tier 2", "D/NFT2", "", 500);
-  await dnftFactoryInstance.cloneDNFTERC721("D/NFT Tier 3", "D/NFT3", "", 100);
+  await dnftFactoryInstance.cloneDNFTERC721("D/NFT Tier 0", "D/NFT0", "", "",10000);
+  await dnftFactoryInstance.cloneDNFTERC721("D/NFT Tier 1", "D/NFT1", "", "",1000);
+  await dnftFactoryInstance.cloneDNFTERC721("D/NFT Tier 2", "D/NFT2", "", "",500);
+  await dnftFactoryInstance.cloneDNFTERC721("D/NFT Tier 3", "D/NFT3", "", "",100);
 
   const tier0Address = await dnftFactoryInstance.clonedContracts(0);
   const tier1Address = await dnftFactoryInstance.clonedContracts(1);
