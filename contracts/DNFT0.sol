@@ -60,7 +60,7 @@ contract DNFT0 is ERC721{
 
     function reveal(uint amount, address _to) external {
         require(counter + amount < maxNftNumber);
-        IERC20(debondNFTTokenAddress).transferFrom(msg.sender, address(this), amount* (1 ether));//safeTransfer
+        IERC20(debondNFTTokenAddress).transferFrom(msg.sender, address(this), amount);//safeTransfer
         for (uint i; i < amount; i++) {
             _safeMint(_to, counter);
             counter ++;
@@ -70,7 +70,7 @@ contract DNFT0 is ERC721{
 
     function forge(uint amount, address _to) external {
         require(counter + amount < maxNftNumber);
-        (bool res) = IERC20(dgovAddress).transferFrom(msg.sender, address(this), amount* (1 ether)); //safeTransfer
+        (bool res) = IERC20(dgovAddress).transferFrom(msg.sender, address(this), amount); //safeTransfer
         require(res);
         for (uint i; i < amount; i++) {
             _safeMint(_to, counter);
