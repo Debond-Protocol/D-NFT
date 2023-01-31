@@ -4,4 +4,4 @@ DNFTFactory: https://goerli.etherscan.io/address/0xe6187ea8493c99e720A8e80ac8418
 
 DNFTERC721: https://goerli.etherscan.io/address/0xe1d91cbe90B64251Ea6a2651Ee2Ac53230d78bE5
 
-DNFTBuyer: https://goerli.etherscan.io/address/0x93Afbc04dA5f132bD31bcA1808d344B10F65E358
+DNFTGovernance: https://goerli.etherscan.io/address/0x93Afbc04dA5f132bD31bcA1808d344B10F65E358
