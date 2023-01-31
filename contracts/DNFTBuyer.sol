@@ -21,21 +21,16 @@ import "./interfaces/IDNFT.sol";
 
 contract DNFTBuyer is Ownable {
 
-    enum TIER {TIER0, TIER1, TIER2, TIER3}
+    enum TIER {TIER0, TIER1}
     mapping(TIER => address) tiers;
     address public mysteryBoxToken;
     bool public onPause = true;
     uint256 public constant TIER1_COMPOSE = 10;
-    uint256 public constant TIER2_COMPOSE = 5;
-    uint256 public constant TIER3_COMPOSE = 2;
-    uint256 public BUY_PRICE = 25 * 10**15;
 
-    constructor(address _mysteryBoxToken, address _dnft0, address _dnft1, address _dnft2, address _dnft3 ) {
+    constructor(address _mysteryBoxToken, address _dnft0, address _dnft1) {
         mysteryBoxToken = _mysteryBoxToken;
         tiers[TIER.TIER0] = _dnft0;
         tiers[TIER.TIER1] = _dnft1;
-        tiers[TIER.TIER2] = _dnft2;
-        tiers[TIER.TIER3] = _dnft3;
     }
 
     modifier notPaused() {
@@ -60,26 +55,9 @@ contract DNFTBuyer is Ownable {
         _processCompose(_to, tokenIds, TIER.TIER0, TIER.TIER1);
     }
 
-    function composeTier2(address _to, uint[] calldata tokenIds) external notPaused {
-        require(tokenIds.length == TIER2_COMPOSE);
-        require(IDNFT(tiers[TIER.TIER1]).isOwnerOf(msg.sender, tokenIds), "caller not owner of token ids given");
-        _processCompose(_to, tokenIds, TIER.TIER1, TIER.TIER2);
-    }
-
-    function composeTier3(address _to, uint[] calldata tokenIds) external notPaused {
-        require(tokenIds.length == TIER3_COMPOSE);
-        require(IDNFT(tiers[TIER.TIER2]).isOwnerOf(msg.sender, tokenIds), "caller not owner of token ids given");
-        _processCompose(_to, tokenIds, TIER.TIER2, TIER.TIER3);
-    }
-
     function claim(address _to, uint quantity) external notPaused {
         IDNFT(tiers[TIER.TIER0]).mint(_to, quantity);
         IERC20(mysteryBoxToken).transferFrom(_to, address(this), quantity);
-    }
-
-    function buy(address _to, uint quantity) external payable notPaused {
-        require(msg.value == BUY_PRICE * quantity, "DNFTBuyer: not the right amount of ETH sent to buy");
-        IDNFT(tiers[TIER.TIER0]).mint(_to, quantity);
     }
 
     function withdrawToOwner() external onlyOwner {
