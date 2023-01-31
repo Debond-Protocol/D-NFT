@@ -31,7 +31,7 @@ module.exports = {
             },
             network_id: 1,
             gas: 4000000,
-            gasPrice: web3.utils.toWei('33', 'gwei')
+            gasPrice: web3.utils.toWei('25', 'gwei')
         },
         dashboard: {
             port: 24012,

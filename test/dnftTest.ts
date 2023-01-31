@@ -56,7 +56,7 @@ contract('DNFT', async (accounts: string[]) => {
 
     it('Holder of DNFT Tier0 Should be able to compose a DNFT Tier1', async () => {
         await dnftBuyerInstance.claim(buyer, 10)
-        const tokenIds = [0,1,2,3,4,5,6,7,8,9];
+        const tokenIds = [2,3,4,5,6,7,8,9,10,11];
         await dnftBuyerInstance.composeTier1(buyer, tokenIds, {from: buyer})
         const buyerDNFT0Balance = (await tier0ERC721Instance.balanceOf(buyer)).toNumber();
         const buyerDNFT1Balance = (await tier1ERC721Instance.balanceOf(buyer)).toNumber();

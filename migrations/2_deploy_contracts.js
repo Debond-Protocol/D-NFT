@@ -9,10 +9,10 @@ module.exports = async function (deployer, accounts) {
   await deployer.deploy(DNFT1, "D/NFT Tier 1", "D/NFT1", "", "",100);
 
 
-  const mysteryBoxToken = await MysteryBoxTest.deployed();
+  // const mysteryBoxToken = await MysteryBoxTest.deployed();
   const tier0 = await DNFT0.deployed();
   const tier1 = await DNFT1.deployed();
-  // const mysteryBoxToken = await MysteryBoxTest.at("0x22fd5F761D1E49B8b56f86D2Dba5AaF311d800d6");
+  const mysteryBoxToken = await MysteryBoxTest.at("0x22fd5F761D1E49B8b56f86D2Dba5AaF311d800d6");
 
   await deployer.deploy(DNFTBuyer, mysteryBoxToken.address, tier0.address, tier1.address).then(() => {
     console.log(`DNFTBuyer deployed with tier0Address: ${tier0.address}, tier1Address: ${tier1.address}`)
