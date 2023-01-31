@@ -14,17 +14,16 @@ pragma solidity ^0.8.0;
     limitations under the License.
 */
 
-import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "./interfaces/IDNFT.sol";
 
 
-contract DNFTERC721 is ERC721Upgradeable, OwnableUpgradeable, AccessControlUpgradeable, IDNFT {
+abstract contract AbstractDNFT is ERC721, Ownable, AccessControl, IDNFT {
     using Strings for uint256;
 
 
@@ -40,21 +39,14 @@ contract DNFTERC721 is ERC721Upgradeable, OwnableUpgradeable, AccessControlUpgra
     Counters.Counter private _tokenId;
     uint256 totalSupply;
 
-    function initialize(
+    constructor(
         string memory _name,
         string memory _symbol,
-        string memory _notRevealedURI,
-        string memory __baseURI,
-        uint _totalSupply,
-        address _owner
-    ) public initializer {
-        __ERC721_init(_name, _symbol);
-        _transferOwnership(_owner);
-        _grantRole(DEFAULT_ADMIN_ROLE, _owner);
-        _grantRole(MINTER_ROLE, _owner);
+        uint _totalSupply
+    ) ERC721(_name, _symbol) {
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(MINTER_ROLE, msg.sender);
         totalSupply = _totalSupply;
-        notRevealedURI = _notRevealedURI;
-        baseURI = __baseURI;
     }
 
 
@@ -63,7 +55,7 @@ contract DNFTERC721 is ERC721Upgradeable, OwnableUpgradeable, AccessControlUpgra
         _;
     }
 
-    function supportsInterface(bytes4 interfaceId) public view override(ERC721Upgradeable, AccessControlUpgradeable) returns (bool) {
+    function supportsInterface(bytes4 interfaceId) public view override(ERC721, AccessControl) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 

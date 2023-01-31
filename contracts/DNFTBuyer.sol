@@ -57,7 +57,7 @@ contract DNFTBuyer is Ownable {
 
     function claim(address _to, uint quantity) external notPaused {
         IDNFT(tiers[TIER.TIER0]).mint(_to, quantity);
-        IERC20(mysteryBoxToken).transferFrom(_to, address(this), quantity);
+        IERC20(mysteryBoxToken).transferFrom(msg.sender, address(this), quantity);
     }
 
     function withdrawToOwner() external onlyOwner {
