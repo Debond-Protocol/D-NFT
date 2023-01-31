@@ -1,4 +1,4 @@
-MysteryBoxTest: https://etherscan.io/address/0x1E6B19acC2cb256544e28ff14bE056D94874cc64
+MysteryBoxTest: https://etherscan.io/address/0x22fd5F761D1E49B8b56f86D2Dba5AaF311d800d6
 
 DNFT0: https://etherscan.io/address/0x4D77FE973bBab19939343A77992D640De99217be#code
 
